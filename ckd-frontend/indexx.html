@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap CSS -->
+		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
+        <title>CKD_prediction</title>
+    </head>
+   
+<!-- Adding styles like colour, height, width, border to our html page -->
+<style>
+
+input[type=text], select {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-weight: bolder;
+}
+
+input[type=submit] {
+  width: 80%;
+  background-color: rgb(218, 121, 121);
+  color:black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size:100;
+  font-weight: bolder;
+}
+
+
+input[type=submit]:hover {
+  background-color: rgb(32, 75, 218);
+}
+form{
+    border-radius: 10px;
+    padding-top: 5%;
+    font-weight: bolder;
+}
+div {
+ 
+  border-radius: 5px;
+  margin-left: 35%;
+  width: 30%;
+  
+}
+h1{
+    color: whitesmoke;
+    font-size: 40px;
+    font-weight: bolder;
+}
+h3{
+  color: white;
+}
+
+body {
+            
+            background-color: rgb(24, 42, 104);
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            padding: 0px;
+            flex-wrap: wrap;
+        }
+       
+</style>
+
+<body>
+
+<h1>Chronic Kidney Disease Prediction</h1>
+<div class="container"></div>
+<div>
+ <!-- Html form which will get all the values from user -->
+ <form action="{{ url_for('predict')}}" method="post" style="background-color:#E6E6FA">
+
+<label for="age">Enter your age:</label><br>
+<input type="text" id="age" name="age" placeholder="65" required="required"><br>
+<label for="blood_pressure">Enter your bloodpressure: </label><br>
+<input type="text" id="blood_pressure" name="blood_pressure" placeholder="80.0" required="required"><br>
+<label for="specific_gravity">Specific gravity of Urine: </label><br>
+<input type="text" id="specific_gravity" name="specific_gravity" placeholder="1.010" required="required"><br>
+<label for="albumin">Enter albumin level:</label><br>
+<input type="text" id="albumin" name="albumin" placeholder="2.0" required="required"><br>
+<label for="sugar">Enter sugar level:</label><br>
+<input type="text" id="sugar" name="sugar" placeholder="3.0" required="required"><br>
+<label for="blood_glucose_random">Enter blood glucose level:</label><br>
+<input type="text" id="blood_glucose_random" name="blood_glucose_random" placeholder="121.0" required="required"><br>
+<label for="blood_urea">Enter blood Urea level</label><br>
+<input type="text" id="blood_urea" name="blood_urea" placeholder="18.0" required="required"><br>
+<label for="serum_creatinine">What is your serum creatinine level:</label><br>
+<input type="text" id="serum_creatinine" name="serum_creatinine" placeholder="3.8" required="required"><br>
+<label for="haemoglobin"> </label>Enter haemoglobin level:</label><br>
+<input type="text" id="haemoglobin" name="haemoglobin" placeholder="12.3" required="required"><br>
+<label for="packed_cell_volume"> Enter PCV: </label> </label><br>
+<input type="text" id="packed_cell_volume" name="packed_cell_volume" placeholder="36" required="required"><br>
+<label for="red_blood_cell_count">Enter RBC count: </label><br>
+<input type="text" id="red_blood_cell_count" name="red_blood_cell_count" placeholder="3.9" required="required"><br>
+<label for="white_blood_cell_count">Enter WBC count: </label><br>
+<input type="text" id="white_blood_cell_count" name="white_blood_cell_count" placeholder="7500" required="required"><br>
+     
+<!-- drop down options are provided for the categorical features -->
+<label for="red_blood_cell">RBC count</label><br>
+<select id="red_blood_cell" name="red_blood_cell">
+    <option value="" selected disabled>Please select an option...</option>
+      <option value="normal">Normal</option>
+      <option value="abnormal">Abnormal</option>
+    </select><br>
+<label for="pus_cell">Pus cell level</label><br>
+    <select id="pus_cell" name="pus_cell" required="required">
+      <option value="" selected disabled>Please select an option...</option>
+      <option value="normal">Normal</option>
+      <option value="abnormal">Abnormal</option>
+    </select><br>
+<label for="pus_cell_clumps">Are pus cell clumps present?</label><br>
+    <select id="pus_cell_clumps" name="pus_cell_clumps" required="required">
+      <option value="" selected disabled>Please select an option...</option>
+      <option value="present">Yes</option>
+      <option value="notpresent">No</option>
+    </select><br>
+<label for="bacteria">Is bacteria present in your kidney? </label><br>
+    <select id="bacteria" name="bacteria" required="required">
+      <option value="" selected disabled>Please select an option...</option>
+      <option value="present">Yes</option>
+      <option value="notpresent">No</option>
+    </select> <br>
+<label for="hypertension">Are you hypertensive? </label><br>
+    <select id="hypertension" name="hypertension" required="required">
+       <option value="" selected disabled>Please select an option...</option>
+       <option value="yes">Yes</option>
+       <option value="no">No</option>
+    </select> <br>
+<label for="diabetes_mellitus">Are you diabetic? </label><br>
+    <select id="diabetes_mellitus" name="diabetes_mellitus" required="required">
+        <option value="" selected disabled>Please select an option...</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select> <br>
+<label for="coronary_artery_disease">Do you have artery disease? </label><br>
+    <select id="coronary_artery_disease" name="coronary_artery_disease" required="required">
+        <option value="" selected disabled>Please select an option...</option>
+         <option value="yes">Yes</option>
+         <option value="no">No</option>
+    </select> <br>
+<label for="appetite">What's your appetite like? </label><br>
+    <select id="appetite" name="appetite" required="required">
+        <option value="" selected disabled>Please select an option...</option>
+          <option value="good">Good</option>
+          <option value="poor">Poor</option>
+    </select> <br>
+<label for="peda_edema">Any sign of feet or ankle swelling? </label><br>
+    <select id="peda_edema" name="peda_edema" required="required">
+        <option value="" selected disabled>Please select an option...</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select> <br>
+<label for="aanemia">Are you anaemic? </label><br>
+    <select id="aanemia" name="aanemia" required="required">
+        <option value="" selected disabled>Please select an option...</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select> <br>
+     
+<!-- submit button -->
+<input id="clickMe" type="submit" value="Result" onclick="Teni();" />           
+<!-- <input type="submit" value="Result"> -->
+</form>
+</div>
+</div>
+    
+<!-- the predicted text -->
+<h3>{{ result }}</h3>
+
+</body>
+</html>
