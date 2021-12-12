@@ -1,6 +1,6 @@
 # Chronic-Kidney-Disease-Prediction-using-Machine-Learning
 
-
+## Abstract
 The data science lifecycle is designed for big data issues and the data science projects. 
 Generally, the data science project consists of seven steps which are problem definition, data collection, data preparation, data exploration,
 machine learning modeling, model evaluation and model deployment.
@@ -8,7 +8,7 @@ machine learning modeling, model evaluation and model deployment.
 The goal of this project is to go through the data science lifecycle steps in order to build a heart disease classification web application
 using kidney disease dataset. This project uses FastAPI to deploy the model and build the web application.
 
-# Dataset
+## Dataset
 
 Data Set Column Information: - 26 attributes 
 <li>age	-	age</li>
@@ -37,7 +37,7 @@ Data Set Column Information: - 26 attributes
 <li><li>ane	-	anemia </li>
 <li>class	-	classification </li>
 
-# Discussion
+## Discussion
 
 In this study, I developed and evaluated a series of artificial intelligence-based models considering minimum variables such as sex, age, 
 symptoms, and medications. These models predict patients’ likelihood of having chronic kidney disease. Among various models tested, support vector classifier (SVC) 
